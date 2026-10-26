@@ -1,1 +1,102 @@
-
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123b2c">
+<title>سرمد | العقارات والاستثمار</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f7f4;color:#18372b}
+header{background:#123b2c;color:white;padding:25px 20px;border-radius:0 0 25px 25px}
+.brand{font-size:30px;font-weight:bold}
+header p{color:#d5e8dc}
+main{max-width:700px;margin:auto;padding:18px}
+input{width:100%;padding:15px;border:1px solid #ddd;border-radius:12px;font-size:16px}
+h2{font-size:21px}
+.filters{display:flex;gap:8px;margin:15px 0}
+.filters button{border:0;border-radius:20px;padding:10px 18px;background:#e0eae2;color:#17432f}
+.filters .active{background:#17432f;color:white}
+.card{background:white;border-radius:16px;overflow:hidden;margin:15px 0;box-shadow:0 3px 12px #0001}
+.photo{height:140px;background:linear-gradient(135deg,#dce9dc,#93b59b);display:grid;place-items:center;font-size:55px}
+.info{padding:16px}
+.tag{background:#e4f1e6;padding:6px 10px;border-radius:20px;font-size:12px}
+.price{font-weight:bold;color:#237044;font-size:20px}
+.details{color:#68796e;font-size:14px}
+.contact{background:#17432f;color:white;border:0;border-radius:10px;padding:13px;width:100%;font-size:15px}
+nav{position:sticky;bottom:0;background:white;display:flex;justify-content:space-around;padding:15px 5px;border-top:1px solid #ddd}
+nav button{border:0;background:white;color:#315744;font-size:13px}
+footer{text-align:center;padding:20px;color:#78867d;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+<div class="brand">سرمد 🏡</div>
+<p>وجهتك للعقارات والفرص الاستثمارية</p>
+</header>
+<main>
+<h2>اكتشف فرصتك القادمة</h2>
+<p>ابحث عن عقار يناسب طموحاتك</p>
+<input id="search" placeholder="ابحث باسم العقار أو المدينة..." oninput="filterCards()">
+<div class="filters">
+<button class="active" onclick="setFilter('all',this)">الكل</button>
+<button onclick="setFilter('بيع',this)">للبيع</button>
+<button onclick="setFilter('استثمار',this)">للاستثمار</button>
+</div>
+<h2>عقارات مميزة</h2>
+<div id="listings">
+<article class="card" data-type="بيع" data-name="شقة سكنية القاهرة">
+<div class="photo">🏢</div>
+<div class="info">
+<span class="tag">للبيع</span>
+<h3>شقة سكنية مميزة</h3>
+<p class="details">📍 القاهرة، مصر · 3 غرف · 150 م²</p>
+<div class="price">2,500,000 جنيه</div>
+<button class="contact" onclick="contactUs('شقة سكنية مميزة')">استفسر عن العقار</button>
+</div>
+</article>
+<article class="card" data-type="استثمار" data-name="وحدة تجارية الجيزة">
+<div class="photo">🏬</div>
+<div class="info">
+<span class="tag">فرصة استثمارية</span>
+<h3>وحدة تجارية للاستثمار</h3>
+<p class="details">📍 الجيزة، مصر · 100 م²</p>
+<div class="price">السعر عند الاستفسار</div>
+<button class="contact" onclick="contactUs('وحدة تجارية للاستثمار')">استفسر عن الفرصة</button>
+</div>
+</article>
+</div>
+<p id="empty" hidden>لا توجد نتائج مطابقة لبحثك.</p>
+</main>
+<nav>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})">🏠 الرئيسية</button>
+<button onclick="document.getElementById('search').focus()">🔎 البحث</button>
+<button onclick="alert('سيتم تفعيل المفضلة لاحقًا')">❤️ المفضلة</button>
+<button onclick="alert('سيتم تفعيل الحساب لاحقًا')">👤 حسابي</button>
+</nav>
+<footer>سرمد © 2026 — منصتك للعقارات والاستثمار</footer>
+<script>
+let currentFilter='all';
+function filterCards(){
+const q=document.getElementById('search').value.trim().toLowerCase();
+let count=0;
+document.querySelectorAll('#listings .card').forEach(card=>{
+const matchType=currentFilter==='all'||card.dataset.type===currentFilter;
+const matchText=(card.dataset.name+' '+card.innerText).toLowerCase().includes(q);
+card.hidden=!(matchType&&matchText);
+if(!card.hidden)count++;
+});
+document.getElementById('empty').hidden=count!==0;
+}
+function setFilter(type,button){
+currentFilter=type;
+document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));
+button.classList.add('active');
+filterCards();
+}
+function contactUs(property){
+alert('للاستفسار عن '+property+'، سيتم تفعيل التواصل المباشر في المرحلة التالية.');
+}
+</script>
+</body>
+</html>
