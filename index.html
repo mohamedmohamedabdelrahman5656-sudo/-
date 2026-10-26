@@ -100,3 +100,11 @@ alert('للاستفسار عن '+property+'، سيتم تفعيل التواصل
 </script>
 </body>
 </html>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/-/sw.js")
+      .catch(error => console.error("Service Worker:", error));
+  });
+}
+</script>
