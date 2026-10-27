@@ -3,147 +3,230 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#123b32">
 <title>سرمد العقاري | منصتك العقارية</title>
+
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f5f6f4;color:#222}
-header{background:#123b32;color:white;padding:20px 15px;text-align:center}
+header{background:#123b32;color:white;text-align:center;padding:22px 12px}
 .logo{font-size:30px;font-weight:bold;color:#e9c778}
 header p{margin:8px 0 0;font-size:14px}
-.container{max-width:1100px;margin:auto;padding:18px}
-.hero{background:#fff;border-radius:16px;padding:22px;margin-bottom:20px}
+.container{max-width:1100px;margin:auto;padding:16px}
+.panel{background:white;padding:20px;border-radius:15px;margin-bottom:20px}
 h2{color:#123b32;margin-top:0}
-.filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-select,input,button{width:100%;padding:13px;border:1px solid #ddd;border-radius:9px;font-size:15px;background:white}
+.filters,.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+input,select,textarea,button{width:100%;padding:13px;border:1px solid #ddd;border-radius:9px;font-size:15px;font-family:inherit}
+input:focus,select:focus,textarea:focus{outline:2px solid #b9d8c9}
 button{background:#123b32;color:white;border:0;font-weight:bold;cursor:pointer}
-.filters button{grid-column:1/-1}
-.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px}
+button:hover{background:#1b5547}
+.primary{grid-column:1/-1}
+.form-grid label{display:block;font-size:13px;margin-bottom:6px;color:#444}
+.field{min-width:0}
+.full{grid-column:1/-1}
+.hint{font-size:12px;color:#666;line-height:1.8}
+.preview{display:none;width:100%;max-height:240px;object-fit:contain;border-radius:10px;margin-top:10px;background:#eee}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .count{font-size:13px;color:#666}
 .properties{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.card{background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 12px #0000000c}
-.card img{width:100%;height:190px;object-fit:cover;display:block}
+.card{background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 12px #0000000c;min-width:0}
+.card img{width:100%;height:190px;object-fit:cover;display:block;background:#eee}
 .card-content{padding:14px}
-.card h3{font-size:17px;margin:8px 0}
-.price{color:#13765a;font-weight:bold;font-size:18px}
+.card h3{font-size:17px;line-height:1.6;margin:8px 0}
+.price{color:#13765a;font-weight:bold;font-size:18px;overflow-wrap:anywhere}
 .location{font-size:13px;color:#666;margin:8px 0}
 .tag{display:inline-block;background:#e7f3ed;color:#17684c;padding:5px 9px;border-radius:6px;font-size:12px}
-.contact{margin-top:12px}
 .empty{display:none;text-align:center;padding:25px;background:white;border-radius:12px}
 footer{text-align:center;padding:24px;background:#123b32;color:white;margin-top:30px;font-size:13px}
-@media(max-width:750px){
-.properties{grid-template-columns:repeat(2,minmax(0,1fr))}
-.card img{height:155px}
-}
-@media(max-width:480px){
-.properties{grid-template-columns:1fr}
-.card img{height:220px}
-.filters{grid-template-columns:1fr}
-.filters button{grid-column:auto}
-}
+@media(max-width:750px){.properties{grid-template-columns:repeat(2,minmax(0,1fr))}.card img{height:155px}}
+@media(max-width:480px){.properties,.filters,.form-grid{grid-template-columns:1fr}.card img{height:220px}.primary,.full{grid-column:auto}}
 </style>
 </head>
-<body>
 
+<body>
 <header>
   <div class="logo">سرمد العقاري</div>
   <p>عقارك المناسب يبدأ من هنا</p>
 </header>
 
 <main class="container">
-  <section class="hero">
+
+  <section class="panel">
     <h2>ابحث عن عقارك</h2>
-    <p>اختر الدولة والمدينة للوصول إلى العقارات المناسبة لك.</p>
-
     <div class="filters">
-      <select id="country" aria-label="اختر الدولة">
+      <select id="countryFilter" aria-label="الدولة">
         <option value="">كل الدول</option>
-        <option>مصر</option>
-        <option>السعودية</option>
-        <option>الإمارات</option>
-        <option>قطر</option>
-        <option>الكويت</option>
-        <option>عُمان</option>
-        <option>البحرين</option>
-        <option>الأردن</option>
-        <option>المغرب</option>
-        <option>الجزائر</option>
-        <option>تونس</option>
-        <option>العراق</option>
-        <option>تركيا</option>
       </select>
-
-      <select id="city" aria-label="اختر المدينة">
+      <select id="cityFilter" aria-label="المدينة">
         <option value="">كل المدن</option>
       </select>
-
-      <select id="type" aria-label="نوع العقار">
-        <option value="">كل أنواع العقارات</option>
-        <option value="شقة">شقق</option>
-        <option value="فيلا">فلل</option>
-        <option value="أرض">أراضٍ</option>
-        <option value="تجاري">عقارات تجارية</option>
+      <select id="typeFilter" aria-label="نوع العقار">
+        <option value="">كل الأنواع</option>
+        <option value="شقة">شقة</option>
+        <option value="فيلا">فيلا</option>
+        <option value="أرض">أرض</option>
+        <option value="تجاري">تجاري</option>
+        <option value="أخرى">أخرى</option>
       </select>
-
-      <select id="deal" aria-label="نوع العملية">
+      <select id="dealFilter" aria-label="نوع العملية">
         <option value="">بيع وإيجار</option>
         <option value="للبيع">للبيع</option>
         <option value="للإيجار">للإيجار</option>
       </select>
-
-      <input id="keyword" type="search" placeholder="ابحث باسم العقار أو المنطقة">
-
-      <button onclick="searchProperties()">بحث عن العقارات</button>
+      <input id="keyword" type="search" placeholder="ابحث عن اسم العقار أو المنطقة">
+      <button class="primary" type="button" id="searchBtn">بحث</button>
     </div>
+  </section>
+
+  <section class="panel" id="publishSection">
+    <h2>＋ انشر عقارك مجانًا</h2>
+    <p class="hint">أدخل بيانات العقار واختر صورة من هاتفك لإضافة إعلان جديد.</p>
+
+    <form id="propertyForm">
+      <div class="form-grid">
+
+        <div class="field full">
+          <label for="propertyName">اسم العقار *</label>
+          <input id="propertyName" required maxlength="100"
+                 placeholder="مثال: شقة فاخرة بإطلالة جميلة">
+        </div>
+
+        <div class="field">
+          <label for="propertyPrice">السعر *</label>
+          <input id="propertyPrice" required type="number" min="0" step="any"
+                 placeholder="أدخل السعر">
+        </div>
+
+        <div class="field">
+          <label for="currency">العملة *</label>
+          <select id="currency" required>
+            <option value="جنيه مصري">جنيه مصري</option>
+            <option value="ريال سعودي">ريال سعودي</option>
+            <option value="درهم إماراتي">درهم إماراتي</option>
+            <option value="دينار كويتي">دينار كويتي</option>
+            <option value="ريال قطري">ريال قطري</option>
+            <option value="دينار بحريني">دينار بحريني</option>
+            <option value="ريال عماني">ريال عماني</option>
+            <option value="دينار أردني">دينار أردني</option>
+            <option value="دولار أمريكي">دولار أمريكي</option>
+            <option value="يورو">يورو</option>
+            <option value="ليرة تركية">ليرة تركية</option>
+            <option value="درهم مغربي">درهم مغربي</option>
+            <option value="دينار جزائري">دينار جزائري</option>
+            <option value="دينار تونسي">دينار تونسي</option>
+            <option value="دينار عراقي">دينار عراقي</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="propertyCountry">الدولة *</label>
+          <select id="propertyCountry" required>
+            <option value="">اختر الدولة</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="propertyCity">المدينة *</label>
+          <select id="propertyCity" required>
+            <option value="">اختر المدينة</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="propertyType">نوع العقار *</label>
+          <select id="propertyType" required>
+            <option value="شقة">شقة</option>
+            <option value="فيلا">فيلا</option>
+            <option value="أرض">أرض</option>
+            <option value="تجاري">تجاري</option>
+            <option value="أخرى">أخرى</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="propertyDeal">نوع العملية *</label>
+          <select id="propertyDeal" required>
+            <option value="للبيع">للبيع</option>
+            <option value="للإيجار">للإيجار</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label for="propertyImage">صورة العقار *</label>
+          <input id="propertyImage" type="file"
+                 accept="image/jpeg,image/png,image/webp" required>
+          <img id="imagePreview" class="preview" alt="معاينة صورة العقار">
+          <p class="hint">اختر صورة بصيغة JPG أو PNG أو WebP، بحجم لا يتجاوز 5 ميجابايت.</p>
+        </div>
+
+        <div class="field full">
+          <label for="propertyDescription">وصف العقار (اختياري)</label>
+          <textarea id="propertyDescription" rows="3" maxlength="500"
+                    placeholder="اكتب تفاصيل العقار ومميزاته"></textarea>
+        </div>
+
+        <div class="field full">
+          <button class="primary" id="publishBtn" type="submit">نشر العقار</button>
+        </div>
+
+      </div>
+    </form>
+
+    <p class="hint" id="publishMessage" role="status"></p>
   </section>
 
   <section>
     <div class="section-title">
-      <h2>عقارات مميزة</h2>
+      <h2>العقارات المتاحة</h2>
       <span class="count" id="count"></span>
     </div>
 
     <div class="properties" id="properties">
 
-      <article class="card" data-country="مصر" data-city="القاهرة" data-type="شقة" data-deal="للبيع" data-name="شقة فاخرة القاهرة">
-        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="شقة عصرية">
+      <!-- الصورة الأولى الأصلية -->
+      <article class="card" data-country="مصر" data-city="القاهرة"
+        data-type="شقة" data-deal="للبيع" data-name="شقة فاخرة القاهرة">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80"
+             alt="شقة عصرية">
         <div class="card-content">
           <span class="tag">للبيع</span>
           <h3>شقة فاخرة بتصميم عصري</h3>
           <div class="location">القاهرة، مصر</div>
           <div class="price">السعر عند التواصل</div>
-          <button class="contact" onclick="contactProperty('شقة فاخرة بتصميم عصري')">استفسر عن العقار</button>
         </div>
       </article>
 
-      <article class="card" data-country="السعودية" data-city="الرياض" data-type="فيلا" data-deal="للبيع" data-name="فيلا عائلية الرياض">
-        <img src="https://images.unsplash.com/photo-1600595592381-5e4c7a4b7b9b?w=800&q=80" alt="فيلا سكنية">
+      <!-- الصورة الثانية الأصلية -->
+      <article class="card" data-country="السعودية" data-city="الرياض"
+        data-type="فيلا" data-deal="للبيع" data-name="فيلا عائلية الرياض">
+        <img src="https://images.unsplash.com/photo-1600595592381-5e4c7a4b7b9b?w=800&q=80"
+             alt="فيلا سكنية">
         <div class="card-content">
           <span class="tag">للبيع</span>
           <h3>فيلا عائلية واسعة</h3>
           <div class="location">الرياض، السعودية</div>
           <div class="price">السعر عند التواصل</div>
-          <button class="contact" onclick="contactProperty('فيلا عائلية واسعة')">استفسر عن العقار</button>
         </div>
       </article>
 
-      <article class="card" data-country="الإمارات" data-city="دبي" data-type="تجاري" data-deal="للإيجار" data-name="مبنى تجاري دبي">
-        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80" alt="مبنى تجاري حديث">
+      <!-- الصورة الثالثة الأصلية -->
+      <article class="card" data-country="الإمارات" data-city="دبي"
+        data-type="تجاري" data-deal="للإيجار" data-name="مبنى تجاري دبي">
+        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80"
+             alt="مبنى تجاري حديث">
         <div class="card-content">
           <span class="tag">للإيجار</span>
           <h3>مبنى تجاري حديث</h3>
           <div class="location">دبي، الإمارات</div>
           <div class="price">السعر عند التواصل</div>
-          <button class="contact" onclick="contactProperty('مبنى تجاري حديث')">استفسر عن العقار</button>
         </div>
       </article>
 
     </div>
 
     <div class="empty" id="empty">
-      لا توجد عقارات مطابقة لبحثك حاليًا.
-      <p>جرّب اختيار دولة أو مدينة أخرى.</p>
+      لا توجد عقارات مطابقة لبحثك.
     </div>
   </section>
 </main>
@@ -151,7 +234,7 @@ footer{text-align:center;padding:24px;background:#123b32;color:white;margin-top:
 <footer>
   <strong>سرمد العقاري</strong>
   <p>منصتك للبحث عن العقارات حول العالم</p>
-  <p>© 2026 سرمد العقاري - جميع الحقوق محفوظة</p>
+  <p>© 2026 سرمد العقاري</p>
 </footer>
 
 <script>
@@ -171,269 +254,194 @@ const cities = {
   "تركيا":["إسطنبول","أنقرة","أنطاليا","إزمير"]
 };
 
-const country = document.getElementById("country");
-const city = document.getElementById("city");
+const $ = id => document.getElementById(id);
+const form = $("propertyForm");
+const countryForm = $("propertyCountry");
+const cityForm = $("propertyCity");
+const countryFilter = $("countryFilter");
+const cityFilter = $("cityFilter");
+const imageInput = $("propertyImage");
+const preview = $("imagePreview");
+let selectedImageUrl = "";
 
-country.addEventListener("change", function() {
-  const selectedCountry = country.value;
-  city.innerHTML = '<option value="">كل المدن</option>';
+function fillCountries(select, firstText) {
+  select.innerHTML = "";
+  const first = document.createElement("option");
+  first.value = "";
+  first.textContent = firstText;
+  select.appendChild(first);
 
-  (cities[selectedCountry] || []).forEach(function(name) {
+  Object.keys(cities).forEach(name => {
     const option = document.createElement("option");
     option.value = name;
     option.textContent = name;
-    city.appendChild(option);
+    select.appendChild(option);
   });
+}
 
+function fillCities(countrySelect, citySelect, firstText) {
+  citySelect.innerHTML = "";
+  const first = document.createElement("option");
+  first.value = "";
+  first.textContent = firstText;
+  citySelect.appendChild(first);
+
+  (cities[countrySelect.value] || []).forEach(name => {
+    const option = document.createElement("option");
+    option.value = name;
+    option.textContent = name;
+    citySelect.appendChild(option);
+  });
+}
+
+fillCountries(countryForm, "اختر الدولة");
+fillCountries(countryFilter, "كل الدول");
+
+countryForm.addEventListener("change", () => {
+  fillCities(countryForm, cityForm, "اختر المدينة");
+});
+
+countryFilter.addEventListener("change", () => {
+  fillCities(countryFilter, cityFilter, "كل المدن");
   searchProperties();
 });
 
-city.addEventListener("change", searchProperties);
-document.getElementById("type").addEventListener("change", searchProperties);
-document.getElementById("deal").addEventListener("change", searchProperties);
-document.getElementById("keyword").addEventListener("input", searchProperties);
+cityFilter.addEventListener("change", searchProperties);
+$("typeFilter").addEventListener("change", searchProperties);
+$("dealFilter").addEventListener("change", searchProperties);
+$("keyword").addEventListener("input", searchProperties);
+$("searchBtn").addEventListener("click", searchProperties);
+
+imageInput.addEventListener("change", () => {
+  const file = imageInput.files[0];
+
+  if (selectedImageUrl) {
+    URL.revokeObjectURL(selectedImageUrl);
+    selectedImageUrl = "";
+  }
+
+  preview.style.display = "none";
+
+  if (!file) return;
+
+  const allowed = ["image/jpeg", "image/png", "image/webp"];
+
+  if (!allowed.includes(file.type) || file.size > 5 * 1024 * 1024) {
+    imageInput.value = "";
+    $("publishMessage").textContent =
+      "اختر صورة JPG أو PNG أو WebP لا يتجاوز حجمها 5 ميجابايت.";
+    return;
+  }
+
+  selectedImageUrl = URL.createObjectURL(file);
+  preview.src = selectedImageUrl;
+  preview.style.display = "block";
+  $("publishMessage").textContent = "";
+});
+
+form.addEventListener("submit", event => {
+  event.preventDefault();
+
+  const name = $("propertyName").value.trim();
+  const price = Number($("propertyPrice").value);
+  const currency = $("currency").value;
+  const country = countryForm.value;
+  const city = cityForm.value;
+  const type = $("propertyType").value;
+  const deal = $("propertyDeal").value;
+  const description = $("propertyDescription").value.trim();
+  const file = imageInput.files[0];
+
+  if (!name || !Number.isFinite(price) || price < 0 ||
+      !country || !city || !file || !selectedImageUrl) {
+    $("publishMessage").textContent =
+      "يرجى إكمال البيانات المطلوبة واختيار صورة صحيحة.";
+    return;
+  }
+
+  const card = document.createElement("article");
+  card.className = "card";
+  card.dataset.country = country;
+  card.dataset.city = city;
+  card.dataset.type = type;
+  card.dataset.deal = deal;
+  card.dataset.name = name + " " + description;
+
+  const img = document.createElement("img");
+  img.src = selectedImageUrl;
+  img.alt = name;
+
+  const content = document.createElement("div");
+  content.className = "card-content";
+
+  const tag = document.createElement("span");
+  tag.className = "tag";
+  tag.textContent = deal;
+
+  const title = document.createElement("h3");
+  title.textContent = name;
+
+  const location = document.createElement("div");
+  location.className = "location";
+  location.textContent = city + "، " + country;
+
+  const priceElement = document.createElement("div");
+  priceElement.className = "price";
+  priceElement.textContent =
+    new Intl.NumberFormat("ar-EG").format(price) + " " + currency;
+
+  content.append(tag, title, location, priceElement);
+
+  if (description) {
+    const desc = document.createElement("p");
+    desc.className = "hint";
+    desc.textContent = description;
+    content.appendChild(desc);
+  }
+
+  card.append(img, content);
+  $("properties").prepend(card);
+
+  form.reset();
+  preview.style.display = "none";
+  selectedImageUrl = "";
+
+  fillCities(countryForm, cityForm, "اختر المدينة");
+  searchProperties();
+
+  $("publishMessage").textContent =
+    "تمت إضافة العقار إلى القائمة الحالية بنجاح.";
+
+  $("properties").scrollIntoView({behavior:"smooth",block:"start"});
+});
 
 function searchProperties() {
-  const selectedCountry = country.value;
-  const selectedCity = city.value;
-  const selectedType = document.getElementById("type").value;
-  const selectedDeal = document.getElementById("deal").value;
-  const keyword = document.getElementById("keyword").value.trim().toLowerCase();
+  const country = countryFilter.value;
+  const city = cityFilter.value;
+  const type = $("typeFilter").value;
+  const deal = $("dealFilter").value;
+  const keyword = $("keyword").value.trim().toLowerCase();
 
-  const cards = document.querySelectorAll(".card");
   let visible = 0;
 
-  cards.forEach(function(card) {
+  document.querySelectorAll("#properties .card").forEach(card => {
     const matches =
-      (!selectedCountry || card.dataset.country === selectedCountry) &&
-      (!selectedCity || card.dataset.city === selectedCity) &&
-      (!selectedType || card.dataset.type === selectedType) &&
-      (!selectedDeal || card.dataset.deal === selectedDeal) &&
-      (!keyword || card.dataset.name.toLowerCase().includes(keyword));
+      (!country || card.dataset.country === country) &&
+      (!city || card.dataset.city === city) &&
+      (!type || card.dataset.type === type) &&
+      (!deal || card.dataset.deal === deal) &&
+      (!keyword ||
+        (card.dataset.name || "").toLowerCase().includes(keyword));
 
     card.style.display = matches ? "" : "none";
     if (matches) visible++;
   });
 
-  document.getElementById("count").textContent =
-    "عدد العقارات المعروضة: " + visible;
-
-  document.getElementById("empty").style.display =
-    visible === 0 ? "block" : "none";
-}
-
-function contactProperty(name) {
-  alert("للاستفسار عن: " + name +
-    "\nأضف رقم التواصل الخاص بإدارة سرمد العقاري لتفعيل هذه الخدمة.");
+  $("count").textContent = "عدد العقارات: " + visible;
+  $("empty").style.display = visible ? "none" : "block";
 }
 
 searchProperties();
 </script>
-
 </body>
 </html>
-
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>سرمد العقارية | SARMAD</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Tahoma,sans-serif;background:#f4f6fa;color:#172337}
-header{background:#102b46;color:white;padding:20px 5%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.logo{font-size:27px;font-weight:bold;color:#f4c76b}
-header small{display:block;color:#d7e2ed;margin-top:6px}
-header a{color:white;text-decoration:none}
-.hero{padding:38px 5%;background:linear-gradient(135deg,#102b46,#176b78);color:white}
-.hero h1{font-size:30px;margin:0 0 12px}
-.hero p{line-height:1.8;color:#e4edf4}
-.search{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
-.search input,.search select{padding:14px;border:0;border-radius:10px;flex:1;min-width:130px;font-size:15px}
-button{border:0;border-radius:10px;padding:13px 18px;background:#e9b957;color:#172337;font-weight:bold;cursor:pointer}
-.categories{display:flex;gap:10px;overflow:auto;padding:20px 5%}
-.categories button{white-space:nowrap;background:white;border:1px solid #dfe5ed}
-.categories button.active{background:#102b46;color:white}
-main{padding:8px 5% 90px}
-.section-title{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-.section-title h2{font-size:22px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-.card{background:white;border-radius:16px;overflow:hidden;box-shadow:0 4px 18px #142d4610}
-.photo{height:175px;background:linear-gradient(135deg,#c7d8dc,#eef1eb);display:flex;align-items:center;justify-content:center;font-size:65px;position:relative}
-.badge{position:absolute;right:12px;top:12px;background:#102b46;color:white;padding:7px 10px;border-radius:7px;font-size:12px}
-.heart{position:absolute;left:12px;top:10px;background:white;border-radius:50%;padding:8px;cursor:pointer}
-.details{padding:16px}
-.details h3{margin:0 0 10px;font-size:18px}
-.location{color:#69788b;font-size:14px;margin-bottom:14px}
-.features{display:flex;gap:12px;flex-wrap:wrap;color:#526277;font-size:13px;margin-bottom:15px}
-.price{font-size:20px;color:#087d70;font-weight:bold;margin:12px 0}
-.contact{display:block;text-align:center;background:#102b46;color:white;padding:12px;border-radius:9px;text-decoration:none}
-.empty{display:none;text-align:center;padding:35px;color:#65748a}
-footer{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid #e2e7ee;display:flex;justify-content:space-around;padding:13px 5%;z-index:5}
-footer a{text-decoration:none;color:#31445b;font-size:13px}
-footer a:first-child{color:#087d70;font-weight:bold}
-@media(min-width:800px){.hero{padding-top:55px;padding-bottom:55px}.hero h1{font-size:38px}}
-</style>
-</head>
-<body>
-
-<header>
-  <div>
-    <div class="logo">سرمد <span style="color:white">العقارية</span></div>
-    <small>عقارك القادم يبدأ من هنا</small>
-  </div>
-  <a href="mailto:info@sarmad.example">تواصل معنا</a>
-</header>
-
-<section class="hero">
-  <h1>اكتشف عقارك المثالي</h1>
-  <p>منصة سرمد العقارية للبيع والاستثمار واكتشاف الفرص العقارية.</p>
-  <div class="search">
-    <input id="q" type="search" placeholder="ابحث بالمدينة أو اسم العقار">
-    <select id="country">
-  <option value="">جميع الدول</option>
-  <option value="مصر">مصر</option>
-  <option value="السعودية">السعودية</option>
-  <option value="الإمارات">الإمارات</option>
-  <option value="قطر">قطر</option>
-  <option value="الكويت">الكويت</option>
-  <option value="عمان">عمان</option>
-  <option value="البحرين">البحرين</option>
-  <option value="الأردن">الأردن</option>
-  <option value="المغرب">المغرب</option>
-  <option value="تركيا">تركيا</option>
-</select>
-
-<select id="city">
-  <option value="">جميع المدن</option>
-  <option value="القاهرة">القاهرة</option>
-  <option value="الجيزة">الجيزة</option>
-  <option value="الإسكندرية">الإسكندرية</option>
-  <option value="الرياض">الرياض</option>
-  <option value="جدة">جدة</option>
-  <option value="دبي">دبي</option>
-  <option value="أبوظبي">أبوظبي</option>
-  <option value="الدوحة">الدوحة</option>
-  <option value="عمّان">عمّان</option>
-  <option value="إسطنبول">إسطنبول</option>
-</select>
-    <select id="type">
-      <option value="">جميع العقارات</option>
-      <option value="بيع">للبيع</option>
-      <option value="استثمار">للاستثمار</option>
-    </select>
-    <button onclick="filterHomes()">ابحث الآن</button>
-  </div>
-</section>
-
-<div class="categories">
-  <button class="active" onclick="chooseType('',this)">الكل</button>
-  <button onclick="chooseType('بيع',this)">🏠 للبيع</button>
-  <button onclick="chooseType('استثمار',this)">📈 الاستثمار</button>
-</div>
-
-<main>
-  <div class="section-title">
-    <h2>عقارات مميزة</h2>
-    <span id="count">عقارات مختارة لك</span>
-  </div>
-
-  <div class="grid" id="homes">
-    <article class="card" data-type="بيع" data-search="شقة القاهرة مصر سكنية">
-      <div class="photo">https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800
-      <div class="details">
-        <h3>شقة سكنية مميزة</h3>
-        <div class="location">📍 القاهرة، مصر</div>
-        <div class="features"><span>🛏️ 3 غرف</span><span>📐 150 م²</span></div>
-        <div class="price">2,500,000 جنيه</div>
-        <a class="contact" href="mailto:info@sarmad.example?subject=استفسار%20عن%20شقة%20القاهرة">استفسر عن العقار</a>
-      </div>
-    </article>
-
-    <article class="card" data-type="استثمار" data-search="وحدة تجارية الجيزة مصر استثمار">
-      <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80');">
-<span class="badge">للبيع</span>
-<span class="heart" onclick="fav(this)">♡</span>
-</div>
-<span class="badge">للبيع</span>
-<span class="heart" onclick="fav(this)">♡</span>
-</div>
-      <div class="details">
-        <h3>وحدة تجارية للاستثمار</h3>
-        <div class="location">📍 الجيزة، مصر</div>
-        <div class="features"><span>📐 100 م²</span><span>📊 استثمار عقاري</span></div>
-        <div class="price">السعر عند الاستفسار</div>
-        <a class="contact" href="mailto:info@sarmad.example?subject=استفسار%20عن%20وحدة%20تجارية">اطلب التفاصيل</a>
-      </div>
-    </article>
-
-    <article class="card" data-type="بيع" data-search="فيلا للبيع منزل سكني">
-      <div class="photo">🏡<span class="badge">للبيع</span><span class="heart" onclick="fav(this)">♡</span></div>
-      <div class="details">
-        <h3>فيلا عصرية</h3>
-        <div class="location">📍 أضف المدينة</div>
-        <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80');">
-<span class="badge">فرصة استثمارية</span>
-<span class="heart" onclick="fav(this)">♡</span>
-</div>
-        <div class="price">السعر عند الاستفسار</div>
-        <a class="contact" href="mailto:info@sarmad.example?subject=استفسار%20عن%20فيلا">استفسر عن العقار</a>
-      </div>
-    </article>
-  </div>
-  <div id="empty" class="empty">لا توجد عقارات مطابقة لبحثك.</div>
-</main>
-
-<footer>
-  <a href="#">⌂<br>الرئيسية</a>
-  <a href="#q" onclick="document.getElementById('q').focus()">⌕<br>البحث</a>
-  <a href="#" onclick="showFav()">♡<br>المفضلة</a>
-  <a href="mailto:info@sarmad.example">☻<br>حسابي</a>
-</footer>
-
-<script>
-function filterHomes(){
-  const q=document.getElementById('q').value.trim().toLowerCase();
-  const type=document.getElementById('type').value;
-  let shown=0;
-  document.querySelectorAll('.card').forEach(card=>{
-    const matchText=card.dataset.search.toLowerCase().includes(q)||card.innerText.toLowerCase().includes(q);
-    const matchType=!type||card.dataset.type===type;
-    card.style.display=matchText&&matchType?'':'none';
-    if(matchText&&matchType)shown++;
-  });
-  document.getElementById('empty').style.display=shown?'none':'block';
-  document.getElementById('count').textContent=shown+' عقار';
-}
-function chooseType(type,btn){
-  document.querySelectorAll('.categories button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('type').value=type;
-  filterHomes();
-}
-function fav(btn){
-  btn.textContent=btn.textContent==='♡'?'♥':'♡';
-  btn.style.color=btn.textContent==='♥'?'#d63d58':'';
-}
-function showFav(){
-  document.querySelectorAll('.card').forEach(card=>{
-    card.style.display=card.querySelector('.heart').textContent==='♥'?'':'none';
-  });
-  document.getElementById('empty').style.display=
-    [...document.querySelectorAll('.card')].some(c=>c.style.display!=='none')?'none':'block';
-  document.getElementById('count').textContent='عقاراتك المفضلة';
-}
-</script>
-</body>
-</html>..photo{
-  height:220px;
-  background-size:cover;
-  background-position:center;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:65px;
-  position:relative;
-  overflow:hidden;
-  border-radius:0;
-}
