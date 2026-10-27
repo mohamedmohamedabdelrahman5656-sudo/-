@@ -341,6 +341,51 @@ imageInput.addEventListener("change", () => {
 
 form.addEventListener("submit", event => {
   event.preventDefault();
+  function addSavedProperty(p) {
+  const card = document.createElement("article");
+  card.className = "card";
+  card.dataset.country = p.country;
+  card.dataset.city = p.city;
+  card.dataset.type = p.type;
+  card.dataset.deal = p.deal;
+  card.dataset.name = p.name + " " + (p.description || "");
+
+  const img = document.createElement("img");
+  img.src = p.image;
+  img.alt = p.name;
+
+  const content = document.createElement("div");
+  content.className = "card-content";
+
+  const tag = document.createElement("span");
+  tag.className = "tag";
+  tag.textContent = p.deal;
+
+  const title = document.createElement("h3");
+  title.textContent = p.name;
+
+  const location = document.createElement("div");
+  location.className = "location";
+  location.textContent = p.city + "، " + p.country;
+
+  const price = document.createElement("div");
+  price.className = "price";
+  price.textContent =
+    new Intl.NumberFormat("ar-EG").format(p.price)
+    + " " + p.currency;
+
+  content.append(tag, title, location, price);
+
+  if (p.description) {
+    const desc = document.createElement("p");
+    desc.className = "hint";
+    desc.textContent = p.description;
+    content.appendChild(desc);
+  }
+
+  card.append(img, content);
+  $("properties").prepend(card);
+}
 
   const name = $("propertyName").value.trim();
   const price = Number($("propertyPrice").value);
