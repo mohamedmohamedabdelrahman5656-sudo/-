@@ -1,4 +1,238 @@
+
 <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#123b32">
+<title>سرمد العقاري | منصتك العقارية</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f5f6f4;color:#222}
+header{background:#123b32;color:white;padding:20px 15px;text-align:center}
+.logo{font-size:30px;font-weight:bold;color:#e9c778}
+header p{margin:8px 0 0;font-size:14px}
+.container{max-width:1100px;margin:auto;padding:18px}
+.hero{background:#fff;border-radius:16px;padding:22px;margin-bottom:20px}
+h2{color:#123b32;margin-top:0}
+.filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+select,input,button{width:100%;padding:13px;border:1px solid #ddd;border-radius:9px;font-size:15px;background:white}
+button{background:#123b32;color:white;border:0;font-weight:bold;cursor:pointer}
+.filters button{grid-column:1/-1}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.count{font-size:13px;color:#666}
+.properties{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 12px #0000000c}
+.card img{width:100%;height:190px;object-fit:cover;display:block}
+.card-content{padding:14px}
+.card h3{font-size:17px;margin:8px 0}
+.price{color:#13765a;font-weight:bold;font-size:18px}
+.location{font-size:13px;color:#666;margin:8px 0}
+.tag{display:inline-block;background:#e7f3ed;color:#17684c;padding:5px 9px;border-radius:6px;font-size:12px}
+.contact{margin-top:12px}
+.empty{display:none;text-align:center;padding:25px;background:white;border-radius:12px}
+footer{text-align:center;padding:24px;background:#123b32;color:white;margin-top:30px;font-size:13px}
+@media(max-width:750px){
+.properties{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card img{height:155px}
+}
+@media(max-width:480px){
+.properties{grid-template-columns:1fr}
+.card img{height:220px}
+.filters{grid-template-columns:1fr}
+.filters button{grid-column:auto}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">سرمد العقاري</div>
+  <p>عقارك المناسب يبدأ من هنا</p>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <h2>ابحث عن عقارك</h2>
+    <p>اختر الدولة والمدينة للوصول إلى العقارات المناسبة لك.</p>
+
+    <div class="filters">
+      <select id="country" aria-label="اختر الدولة">
+        <option value="">كل الدول</option>
+        <option>مصر</option>
+        <option>السعودية</option>
+        <option>الإمارات</option>
+        <option>قطر</option>
+        <option>الكويت</option>
+        <option>عُمان</option>
+        <option>البحرين</option>
+        <option>الأردن</option>
+        <option>المغرب</option>
+        <option>الجزائر</option>
+        <option>تونس</option>
+        <option>العراق</option>
+        <option>تركيا</option>
+      </select>
+
+      <select id="city" aria-label="اختر المدينة">
+        <option value="">كل المدن</option>
+      </select>
+
+      <select id="type" aria-label="نوع العقار">
+        <option value="">كل أنواع العقارات</option>
+        <option value="شقة">شقق</option>
+        <option value="فيلا">فلل</option>
+        <option value="أرض">أراضٍ</option>
+        <option value="تجاري">عقارات تجارية</option>
+      </select>
+
+      <select id="deal" aria-label="نوع العملية">
+        <option value="">بيع وإيجار</option>
+        <option value="للبيع">للبيع</option>
+        <option value="للإيجار">للإيجار</option>
+      </select>
+
+      <input id="keyword" type="search" placeholder="ابحث باسم العقار أو المنطقة">
+
+      <button onclick="searchProperties()">بحث عن العقارات</button>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>عقارات مميزة</h2>
+      <span class="count" id="count"></span>
+    </div>
+
+    <div class="properties" id="properties">
+
+      <article class="card" data-country="مصر" data-city="القاهرة" data-type="شقة" data-deal="للبيع" data-name="شقة فاخرة القاهرة">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="شقة عصرية">
+        <div class="card-content">
+          <span class="tag">للبيع</span>
+          <h3>شقة فاخرة بتصميم عصري</h3>
+          <div class="location">القاهرة، مصر</div>
+          <div class="price">السعر عند التواصل</div>
+          <button class="contact" onclick="contactProperty('شقة فاخرة بتصميم عصري')">استفسر عن العقار</button>
+        </div>
+      </article>
+
+      <article class="card" data-country="السعودية" data-city="الرياض" data-type="فيلا" data-deal="للبيع" data-name="فيلا عائلية الرياض">
+        <img src="https://images.unsplash.com/photo-1600595592381-5e4c7a4b7b9b?w=800&q=80" alt="فيلا سكنية">
+        <div class="card-content">
+          <span class="tag">للبيع</span>
+          <h3>فيلا عائلية واسعة</h3>
+          <div class="location">الرياض، السعودية</div>
+          <div class="price">السعر عند التواصل</div>
+          <button class="contact" onclick="contactProperty('فيلا عائلية واسعة')">استفسر عن العقار</button>
+        </div>
+      </article>
+
+      <article class="card" data-country="الإمارات" data-city="دبي" data-type="تجاري" data-deal="للإيجار" data-name="مبنى تجاري دبي">
+        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80" alt="مبنى تجاري حديث">
+        <div class="card-content">
+          <span class="tag">للإيجار</span>
+          <h3>مبنى تجاري حديث</h3>
+          <div class="location">دبي، الإمارات</div>
+          <div class="price">السعر عند التواصل</div>
+          <button class="contact" onclick="contactProperty('مبنى تجاري حديث')">استفسر عن العقار</button>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="empty" id="empty">
+      لا توجد عقارات مطابقة لبحثك حاليًا.
+      <p>جرّب اختيار دولة أو مدينة أخرى.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <strong>سرمد العقاري</strong>
+  <p>منصتك للبحث عن العقارات حول العالم</p>
+  <p>© 2026 سرمد العقاري - جميع الحقوق محفوظة</p>
+</footer>
+
+<script>
+const cities = {
+  "مصر":["القاهرة","الجيزة","الإسكندرية","المنصورة","أسيوط","الأقصر","الغردقة","شرم الشيخ"],
+  "السعودية":["الرياض","جدة","مكة المكرمة","المدينة المنورة","الدمام","الخبر","أبها","تبوك"],
+  "الإمارات":["دبي","أبوظبي","الشارقة","عجمان","رأس الخيمة","الفجيرة"],
+  "قطر":["الدوحة","الريان","الوكرة","لوسيل"],
+  "الكويت":["مدينة الكويت","حولي","السالمية","الجهراء"],
+  "عُمان":["مسقط","صلالة","صحار","نزوى"],
+  "البحرين":["المنامة","المحرق","الرفاع"],
+  "الأردن":["عمّان","إربد","العقبة","الزرقاء"],
+  "المغرب":["الدار البيضاء","الرباط","مراكش","طنجة","فاس"],
+  "الجزائر":["الجزائر العاصمة","وهران","قسنطينة","عنابة"],
+  "تونس":["تونس العاصمة","صفاقس","سوسة","الحمامات"],
+  "العراق":["بغداد","أربيل","البصرة","الموصل"],
+  "تركيا":["إسطنبول","أنقرة","أنطاليا","إزمير"]
+};
+
+const country = document.getElementById("country");
+const city = document.getElementById("city");
+
+country.addEventListener("change", function() {
+  const selectedCountry = country.value;
+  city.innerHTML = '<option value="">كل المدن</option>';
+
+  (cities[selectedCountry] || []).forEach(function(name) {
+    const option = document.createElement("option");
+    option.value = name;
+    option.textContent = name;
+    city.appendChild(option);
+  });
+
+  searchProperties();
+});
+
+city.addEventListener("change", searchProperties);
+document.getElementById("type").addEventListener("change", searchProperties);
+document.getElementById("deal").addEventListener("change", searchProperties);
+document.getElementById("keyword").addEventListener("input", searchProperties);
+
+function searchProperties() {
+  const selectedCountry = country.value;
+  const selectedCity = city.value;
+  const selectedType = document.getElementById("type").value;
+  const selectedDeal = document.getElementById("deal").value;
+  const keyword = document.getElementById("keyword").value.trim().toLowerCase();
+
+  const cards = document.querySelectorAll(".card");
+  let visible = 0;
+
+  cards.forEach(function(card) {
+    const matches =
+      (!selectedCountry || card.dataset.country === selectedCountry) &&
+      (!selectedCity || card.dataset.city === selectedCity) &&
+      (!selectedType || card.dataset.type === selectedType) &&
+      (!selectedDeal || card.dataset.deal === selectedDeal) &&
+      (!keyword || card.dataset.name.toLowerCase().includes(keyword));
+
+    card.style.display = matches ? "" : "none";
+    if (matches) visible++;
+  });
+
+  document.getElementById("count").textContent =
+    "عدد العقارات المعروضة: " + visible;
+
+  document.getElementById("empty").style.display =
+    visible === 0 ? "block" : "none";
+}
+
+function contactProperty(name) {
+  alert("للاستفسار عن: " + name +
+    "\nأضف رقم التواصل الخاص بإدارة سرمد العقاري لتفعيل هذه الخدمة.");
+}
+
+searchProperties();
+</script>
+
+</body>
+</html>
+
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
