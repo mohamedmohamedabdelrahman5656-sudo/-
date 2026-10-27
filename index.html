@@ -446,7 +446,21 @@ form.addEventListener("submit", event => {
 
   card.append(img, content);
   $("properties").prepend(card);
-
+try {
+  window.sarmadSaveAd({
+    name: name,
+    price: price,
+    currency: currency,
+    country: country,
+    city: city,
+    type: type,
+    deal: deal,
+    description: description,
+    image: selectedImageUrl
+  });
+} catch (error) {
+  console.error("تعذر حفظ الإعلان", error);
+}
   form.reset();
   preview.style.display = "none";
   selectedImageUrl = "";
